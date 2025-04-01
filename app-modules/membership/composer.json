@@ -1,0 +1,24 @@
+{
+	"name": "modules/membership",
+	"description": "",
+	"type": "library",
+	"version": "1.0",
+	"license": "proprietary",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"Modules\\Membership\\": "src/",
+			"Modules\\Membership\\Tests\\": "tests/",
+			"Modules\\Membership\\Database\\Factories\\": "database/factories/",
+			"Modules\\Membership\\Database\\Seeders\\": "database/seeders/"
+		}
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Modules\\Membership\\Providers\\MembershipServiceProvider"
+			]
+		}
+	}
+}
