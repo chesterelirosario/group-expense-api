@@ -9,8 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('memberships', function (Blueprint $table) {
-            $table->unsignedBigInteger('group_id');
-            $table->unsignedBigInteger('user_id');
+            $table->uuid('group_id');
+            $table->uuid('user_id');
             $table->string('role');
             $table->timestamps();
             $table->primary(['group_id', 'user_id']);
