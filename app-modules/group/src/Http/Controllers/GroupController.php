@@ -23,8 +23,8 @@ class GroupController extends Controller
         $group = $request->handle(new Group());
 
         return response()->json([
-            'data' => $group,
-        ]);
+            'group' => $group,
+        ], 201);
     }
 
     public function update(SaveGroupRequest $request, Group $group): JsonResponse
@@ -32,7 +32,7 @@ class GroupController extends Controller
         $group = $request->handle($group);
 
         return response()->json([
-            'data' => $group,
+            'group' => $group,
         ]);
     }
 
@@ -40,8 +40,6 @@ class GroupController extends Controller
     {
         $group->delete();
 
-        return response()->json([
-            'data' => [],
-        ]);
+        return response()->json([]);
     }
 }
