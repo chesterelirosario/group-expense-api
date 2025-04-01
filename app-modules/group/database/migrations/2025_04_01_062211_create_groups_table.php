@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->uuid()->primary();
             $table->string('name');
-            $table->uuid('code')->unique();
             $table->timestamps();
         });
     }

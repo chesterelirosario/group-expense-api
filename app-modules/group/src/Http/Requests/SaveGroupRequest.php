@@ -21,7 +21,6 @@ class SaveGroupRequest extends FormRequest
     {
         $group->fill([
             'name' => $this->name,
-            'code' => $group->code ?? uniqid(),
         ])->save();
         return $group;
     }
