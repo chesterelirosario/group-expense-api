@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "59008155dabbd088017433375ce82c93",
+    "content-hash": "fb4016e330698900e56013347d297dfa",
     "packages": [
         {
             "name": "brick/math",
@@ -2778,6 +2778,70 @@
                 }
             ],
             "time": "2024-12-08T08:18:47+00:00"
+        },
+        {
+            "name": "modules/group",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "app-modules/group",
+                "reference": "a1f833a3e8aa65be14e568dbd208afe0bd29c1de"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Modules\\Group\\Providers\\GroupServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Group\\": "src/",
+                    "Modules\\Group\\Tests\\": "tests/",
+                    "Modules\\Group\\Database\\Factories\\": "database/factories/",
+                    "Modules\\Group\\Database\\Seeders\\": "database/seeders/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "modules/membership",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "app-modules/membership",
+                "reference": "397e3dc9c08fe5f5a714bc8dbb44e99fb3117faf"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Modules\\Membership\\Providers\\MembershipServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Membership\\": "src/",
+                    "Modules\\Membership\\Tests\\": "tests/",
+                    "Modules\\Membership\\Database\\Factories\\": "database/factories/",
+                    "Modules\\Membership\\Database\\Seeders\\": "database/seeders/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "monolog/monolog",
