@@ -4,6 +4,7 @@ namespace Modules\Group\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use Modules\Group\Events\GroupCreated;
 use Modules\Group\Http\Requests\SaveGroupRequest;
 use Modules\Group\Models\Group;
 
@@ -21,6 +22,8 @@ class GroupController extends Controller
     public function store(SaveGroupRequest $request): JsonResponse
     {
         $group = $request->handle(new Group());
+
+        event(new GroupCreated($group, $request->user()));
 
         return response()->json([
             'group' => $group,
