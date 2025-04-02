@@ -10,6 +10,7 @@ use Modules\Membership\Events\MemberDemoted;
 use Modules\Membership\Events\MemberJoined;
 use Modules\Membership\Events\MemberLeft;
 use Modules\Membership\Events\MemberPromoted;
+use Modules\Membership\Events\OwnerChanged;
 use Modules\Membership\Exceptions\MemberAlreadyAMemberException;
 use Modules\Membership\Exceptions\MemberAlreadyAnAdminOrOwnerException;
 use Modules\Membership\Exceptions\MemberAlreadyExistsException;
@@ -90,13 +91,13 @@ class MembershipService
             $this->handleOwnershipTransfer($membership);
         }
 
+        $groupId = $membership->group_id;
+        $userId = $membership->user_id;
+        $role = $membership->role->value;
+
         $this->membershipRepository->delete($membership);
 
-        event(new MemberLeft(
-            $membership->group_id,
-            $membership->user_id,
-            $membership->role->value,
-        ));
+        event(new MemberLeft($groupId, $userId, $role));
     }
 
     private function handleOwnershipTransfer(Membership $membership): void
@@ -104,7 +105,8 @@ class MembershipService
         $newOwner = $this->membershipRepository->getNextOwner($membership->group_id);
 
         if ($newOwner) {
-            $this->membershipRepository->update($newOwner, Role::Administrator);
+            $membership = $this->membershipRepository->update($newOwner, Role::Administrator);
+            event(new OwnerChanged($membership->group_id));
         } else {
             event(new GroupEmptied($membership->group_id));
         }
