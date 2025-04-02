@@ -22,7 +22,7 @@ class GroupService
         return $this->groupRepository->all();
     }
 
-    public function getGroup(string $id): Group
+    public function findGroup(string $id): ?Group
     {
         return $this->groupRepository->find($id);
     }

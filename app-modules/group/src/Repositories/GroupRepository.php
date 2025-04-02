@@ -13,19 +13,25 @@ class GroupRepository
         return Group::all()->toArray();
     }
 
-    public function find(string $id): Group
+    public function find(string $id): ?Group
     {
         return Group::find($id);
     }
 
     public function create(CreateGroupDto $dto): Group
     {
-        return Group::create(['name' => $dto->name]);
+        return Group::create([
+            'name' => $dto->name,
+            'owner_id' => $dto->ownerId
+        ]);
     }
 
     public function update(Group $group, UpdateGroupDto $dto): Group
     {
-        $group->update(['name' => $dto->name]);
+        $group->update([
+            'name' => $dto->name ?? $group->name,
+            'owner_id' => $dto->ownerId ?? $group->owner_id,
+        ]);
 
         return $group;
     }

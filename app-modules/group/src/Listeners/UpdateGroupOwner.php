@@ -2,10 +2,11 @@
 
 namespace Modules\Membership\Listeners;
 
+use Modules\Group\Dto\UpdateGroupDto;
 use Modules\Group\Services\GroupService;
-use Modules\Membership\Events\GroupEmptied;
+use Modules\Membership\Events\OwnerChanged;
 
-class DeleteEmptyGroup
+class UpdateGroupOwner
 {
     protected $groupService;
 
@@ -14,10 +15,13 @@ class DeleteEmptyGroup
         $this->groupService = $groupService;
     }
     
-    public function handle(GroupEmptied $event): void
+    public function handle(OwnerChanged $event): void
     {
         $group = $this->groupService->findGroup($event->groupId);
 
-        if ($group) $this->groupService->deleteGroup($group);
+        if ($group) {
+            $dto = new UpdateGroupDto($group->name, $event->userId);
+            $this->groupService->updateGroup($group, $dto);
+        }
     }
 }
