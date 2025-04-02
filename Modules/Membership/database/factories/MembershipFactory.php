@@ -5,9 +5,12 @@ namespace Modules\Membership\Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Membership\Enums\Role;
+use Modules\Membership\Models\Membership;
 
 class MembershipFactory extends Factory
 {
+    protected $model = Membership::class;
+
     public function definition(): array
     {
         return [
