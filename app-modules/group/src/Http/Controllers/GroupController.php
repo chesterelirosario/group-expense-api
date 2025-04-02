@@ -4,26 +4,34 @@ namespace Modules\Group\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Modules\Group\Events\GroupCreated;
+use Modules\Group\Dto\CreateGroupDto;
+use Modules\Group\Dto\UpdateGroupDto;
 use Modules\Group\Http\Requests\SaveGroupRequest;
 use Modules\Group\Models\Group;
+use Modules\Group\Services\GroupService;
 
 class GroupController extends Controller
 {
+    protected $groupService;
+
+    public function __construct(GroupService $groupService)
+    {
+        $this->groupService = $groupService;
+    }
+
     public function index(): JsonResponse
     {
-        $groups = Group::all()->toArray(); // Filter to only groups that the user is a member
+        $groups = $this->groupService->getAllGroups();
 
         return response()->json([
-            'data' => $groups,
+            'groups' => $groups,
         ]);
     }
 
     public function store(SaveGroupRequest $request): JsonResponse
     {
-        $group = $request->handle(new Group());
-
-        event(new GroupCreated($group, $request->user()));
+        $dto = CreateGroupDto::fromRequest($request);
+        $group = $this->groupService->createGroup($dto);
 
         return response()->json([
             'group' => $group,
@@ -32,7 +40,8 @@ class GroupController extends Controller
 
     public function update(SaveGroupRequest $request, Group $group): JsonResponse
     {
-        $group = $request->handle($group);
+        $dto = UpdateGroupDto::fromRequest($request);
+        $group = $this->groupService->updateGroup($group, $dto);
 
         return response()->json([
             'group' => $group,
@@ -41,8 +50,8 @@ class GroupController extends Controller
 
     public function destroy(Group $group): JsonResponse
     {
-        $group->delete();
+        $this->groupService->deleteGroup($group);
 
-        return response()->json([]);
+        return response()->json([], 204);
     }
 }

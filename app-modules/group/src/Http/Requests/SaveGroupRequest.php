@@ -16,12 +16,4 @@ class SaveGroupRequest extends FormRequest
             ],
         ];
     }
-
-    public function handle(Group $group): Group
-    {
-        $group->fill([
-            'name' => $this->name,
-        ])->save();
-        return $group;
-    }
 }
