@@ -16,7 +16,7 @@ class MembershipFactory extends Factory
         return [
             'group_id' => $this->faker->uuid(),
             'user_id' => User::factory(),
-            'role' => array_rand(Role::cases()),
+            'role' => $this->faker->randomElement(Role::cases()),
         ];
     }
 }
