@@ -5,6 +5,7 @@ namespace Modules\Group\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Group\Database\Factories\GroupFactory;
 
 class Group extends Model
 {
@@ -15,4 +16,9 @@ class Group extends Model
         'name',
         'owner_id',
     ];
+
+    protected static function newFactory()
+    {
+        return GroupFactory::new();
+    }
 }

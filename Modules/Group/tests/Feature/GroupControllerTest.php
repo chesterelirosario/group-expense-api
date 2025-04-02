@@ -1,31 +1,30 @@
 <?php
 
-namespace Tests\Modules\Group\Feature;
+namespace Modules\Group\Tests\Feature;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Group\Models\Group;
 use App\Models\User;
-use Illuminate\Support\Facades\Event;
+use Illuminate\Foundation\Testing\TestCase;
 
 class GroupControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_can_get_only_their_groups()
+    public function test_user_can_access_groups()
     {
         $user = User::factory()->create();
         Group::factory()->count(2)->create();
 
         $this->actingAs($user)
-            ->getJson(route('groups.index'))
+            ->getJson(route('api.groups.index'))
             ->assertStatus(200)
             ->assertJsonCount(2, 'groups');
     }
 
     public function test_guest_cannot_access_groups()
     {
-        $this->getJson(route('groups.index'))
+        $this->getJson(route('api.groups.index'))
             ->assertStatus(401);
     }
 
@@ -35,7 +34,7 @@ class GroupControllerTest extends TestCase
         $groupData = ['name' => 'New Group'];
 
         $this->actingAs($user)
-            ->postJson(route('groups.store'), $groupData)
+            ->postJson(route('api.groups.store'), $groupData)
             ->assertStatus(201)
             ->assertJsonFragment(['name' => 'New Group']);
     }
@@ -48,7 +47,7 @@ class GroupControllerTest extends TestCase
         $updateData = ['name' => 'Updated Group'];
 
         $this->actingAs($user)
-            ->putJson(route('groups.update', $group), $updateData)
+            ->putJson(route('api.groups.update', $group), $updateData)
             ->assertStatus(200)
             ->assertJsonFragment(['name' => 'Updated Group']);
     }
@@ -61,7 +60,7 @@ class GroupControllerTest extends TestCase
         $updateData = ['name' => 'Unauthorized Update'];
 
         $this->actingAs($user)
-            ->putJson(route('groups.update', $group), $updateData)
+            ->putJson(route('api.groups.update', $group), $updateData)
             ->assertStatus(403);
     }
 
@@ -71,7 +70,7 @@ class GroupControllerTest extends TestCase
         $group = Group::factory()->create(['owner_id' => $user->id]);
 
         $this->actingAs($user)
-            ->deleteJson(route('groups.destroy', $group))
+            ->deleteJson(route('api.groups.destroy', $group))
             ->assertStatus(200)
             ->assertJsonFragment(['message' => 'Deleted group successfully.']);
     }
@@ -82,7 +81,7 @@ class GroupControllerTest extends TestCase
         $group = Group::factory()->create();
 
         $this->actingAs($user)
-            ->deleteJson(route('groups.destroy', $group))
+            ->deleteJson(route('api.groups.destroy', $group))
             ->assertStatus(403);
     }
 }
