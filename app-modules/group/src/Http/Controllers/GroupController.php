@@ -23,9 +23,7 @@ class GroupController extends Controller
     {
         $groups = $this->groupService->getAllGroups();
 
-        return response()->json([
-            'groups' => $groups,
-        ]);
+        return response()->json(['groups' => $groups]);
     }
 
     public function store(SaveGroupRequest $request): JsonResponse
@@ -33,9 +31,7 @@ class GroupController extends Controller
         $dto = CreateGroupDto::fromRequest($request);
         $group = $this->groupService->createGroup($dto);
 
-        return response()->json([
-            'group' => $group,
-        ], 201);
+        return response()->json(['group' => $group], 201);
     }
 
     public function update(SaveGroupRequest $request, Group $group): JsonResponse
@@ -43,9 +39,7 @@ class GroupController extends Controller
         $dto = UpdateGroupDto::fromRequest($request);
         $group = $this->groupService->updateGroup($group, $dto);
 
-        return response()->json([
-            'group' => $group,
-        ]);
+        return response()->json(['group' => $group]);
     }
 
     public function destroy(Group $group): JsonResponse

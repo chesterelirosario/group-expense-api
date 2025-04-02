@@ -22,6 +22,11 @@ class GroupService
         return $this->groupRepository->all();
     }
 
+    public function getGroup(string $id): Group
+    {
+        return $this->groupRepository->find($id);
+    }
+
     public function createGroup(CreateGroupDto $dto): Group
     {
         $group = $this->groupRepository->create($dto);

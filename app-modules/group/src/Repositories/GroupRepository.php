@@ -13,6 +13,11 @@ class GroupRepository
         return Group::all()->toArray();
     }
 
+    public function find(string $id): Group
+    {
+        return Group::find($id);
+    }
+
     public function create(CreateGroupDto $dto): Group
     {
         return Group::create(['name' => $dto->name]);
