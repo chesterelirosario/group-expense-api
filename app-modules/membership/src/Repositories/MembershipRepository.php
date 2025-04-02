@@ -16,7 +16,7 @@ class MembershipRepository
             ->toArray();
     }
 
-    public function findByUserAndGroup(string $groupId, string $userId): ?Membership
+    public function findByUserAndGroup(string $userId, string $groupId): ?Membership
     {
         return Membership::where('group_id', $groupId)
             ->where('user_id', $userId)

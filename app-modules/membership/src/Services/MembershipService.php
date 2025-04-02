@@ -13,7 +13,6 @@ use Modules\Membership\Events\MemberPromoted;
 use Modules\Membership\Exceptions\MemberAlreadyAMemberException;
 use Modules\Membership\Exceptions\MemberAlreadyAnAdminOrOwnerException;
 use Modules\Membership\Exceptions\MemberAlreadyExistsException;
-use Modules\Membership\Exceptions\UnauthorisedActionException;
 use Modules\Membership\Models\Membership;
 use Modules\Membership\Repositories\MembershipRepository;
 
@@ -33,6 +32,11 @@ class MembershipService
         return $memberships;
     }
 
+    public function findMember(string $userId, string $groupId): ?Membership
+    {
+        return $this->membershipRepository->findByUserAndGroup($userId, $groupId);
+    }
+
     public function joinGroup(CreateMemberDto $dto): Membership
     {
         $existingMembership = $this->membershipRepository->findByUserAndGroup($dto->userId, $dto->groupId);
@@ -50,12 +54,6 @@ class MembershipService
 
     public function promoteMember(UpdateMemberDto $dto): Membership
     {
-        $requestingUserMembership = $this->membershipRepository->findByUserAndGroup(request()->user()->id, $dto->groupId);
-
-        if (!$requestingUserMembership || !in_array($requestingUserMembership->role, [Role::Owner, Role::Administrator])) {
-            throw new UnauthorisedActionException();
-        }
-
         $existingMembership = $this->membershipRepository->findByUserAndGroup($dto->userId, $dto->groupId);
 
         if (in_array($existingMembership->role, [Role::Owner, Role::Administrator])) {
@@ -71,12 +69,6 @@ class MembershipService
 
     public function demoteMember(UpdateMemberDto $dto): Membership
     {
-        $requestingUserMembership = $this->membershipRepository->findByUserAndGroup(request()->user()->id, $dto->groupId);
-
-        if (!$requestingUserMembership || !in_array($requestingUserMembership->role, [Role::Owner, Role::Administrator])) {
-            throw new UnauthorisedActionException();
-        }
-
         $existingMembership = $this->membershipRepository->findByUserAndGroup($dto->userId, $dto->groupId);
 
         if ($existingMembership->role === Role::Member) {
@@ -93,10 +85,6 @@ class MembershipService
     public function leaveGroup(UpdateMemberDto $dto): void
     {
         $membership = $this->membershipRepository->findByUserAndGroup(request()->user()->id, $dto->groupId);
-
-        if (!$membership) {
-            throw new UnauthorisedActionException();
-        }
 
         if ($membership->role === Role::Owner) {
             $this->handleOwnershipTransfer($membership);
