@@ -1,11 +1,14 @@
 <?php
 
-// use Modules\Membership\Http\Controllers\MembershipController;
+use Illuminate\Support\Facades\Route;
+use Modules\Membership\Http\Controllers\MembershipController;
 
-// Route::get('/memberships', [MembershipController::class, 'index'])->name('memberships.index');
-// Route::get('/memberships/create', [MembershipController::class, 'create'])->name('memberships.create');
-// Route::post('/memberships', [MembershipController::class, 'store'])->name('memberships.store');
-// Route::get('/memberships/{membership}', [MembershipController::class, 'show'])->name('memberships.show');
-// Route::get('/memberships/{membership}/edit', [MembershipController::class, 'edit'])->name('memberships.edit');
-// Route::put('/memberships/{membership}', [MembershipController::class, 'update'])->name('memberships.update');
-// Route::delete('/memberships/{membership}', [MembershipController::class, 'destroy'])->name('memberships.destroy');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('api/memberships')->group(function () {
+        Route::get('/', [MembershipController::class, 'members']);
+        Route::post('join', [MembershipController::class, 'join']);
+        Route::put('promote', [MembershipController::class, 'promote']);
+        Route::put('demote', [MembershipController::class, 'demote']);
+        Route::delete('leave', [MembershipController::class, 'leave']);
+    });
+});
