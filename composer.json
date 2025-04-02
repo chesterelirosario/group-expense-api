@@ -10,13 +10,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "internachi/modular": "^2.3",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
-        "modules/group": "*",
-        "modules/membership": "*",
-        "modules/notification": "*"
+        "nwidart/laravel-modules": "^12.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -63,6 +60,11 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "merge-plugin": {
+            "include": [
+                "Modules/*/composer.json"
+            ]
         }
     },
     "config": {
@@ -71,18 +73,10 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "wikimedia/composer-merge-plugin": true
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "path",
-            "url": "app-modules/*",
-            "options": {
-                "symlink": true
-            }
-        }
-    ]
+    "prefer-stable": true
 }
