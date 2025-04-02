@@ -2,7 +2,7 @@
 
 namespace Modules\Group\Dto;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 
 class CreateGroupDto
 {
@@ -18,8 +18,8 @@ class CreateGroupDto
     public static function fromRequest(Request $request): self
     {
         return new self(
-            name: $request->name,
-            ownerId: $request->user()->id
+            name: $request->get('name'),
+            ownerId: $request->user()->id,
         );
     }
 }

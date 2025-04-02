@@ -2,7 +2,7 @@
 
 namespace Modules\Group\Dto;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 
 class UpdateGroupDto
 {
@@ -16,7 +16,7 @@ class UpdateGroupDto
     public static function fromRequest(Request $request): self
     {
         return new self(
-            name: $request->name
+            name: $request->get('name'),
         );
     }
 }
