@@ -1,4 +1,5 @@
 {
     "Group": true,
-    "Membership": true
+    "Membership": true,
+    "Notification": true
 }

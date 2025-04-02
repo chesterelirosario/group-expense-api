@@ -1,19 +1,19 @@
 <?php
 
-namespace Modules\Membership\Providers;
+namespace Modules\Notification\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-class MembershipServiceProvider extends ServiceProvider
+class NotificationServiceProvider extends ServiceProvider
 {
     use PathNamespace;
 
-    protected string $name = 'Membership';
+    protected string $name = 'Notification';
 
-    protected string $nameLower = 'membership';
+    protected string $nameLower = 'notification';
 
     /**
      * Boot the application events.
