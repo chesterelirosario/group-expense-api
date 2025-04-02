@@ -5,6 +5,7 @@ namespace Modules\Membership\Exceptions;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -15,7 +16,7 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => $exception->getMessage()], 404);
         }
 
-        if ($exception instanceof UnauthorisedActionException) {
+        if ($exception instanceof AccessDeniedHttpException) {
             return response()->json(['error' => $exception->getMessage()], 403);
         }
 
