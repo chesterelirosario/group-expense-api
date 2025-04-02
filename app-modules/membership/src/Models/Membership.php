@@ -2,8 +2,10 @@
 
 namespace Modules\Membership\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Membership\Enums\Role;
 
 class Membership extends Model
@@ -21,5 +23,10 @@ class Membership extends Model
         return [
             'role' => Role::class,
         ];
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
