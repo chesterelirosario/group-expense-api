@@ -2,7 +2,7 @@
 
 namespace Modules\Group\Dto;
 
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class UpdateGroupDto
 {
