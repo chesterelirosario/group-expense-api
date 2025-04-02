@@ -36,6 +36,8 @@ class GroupController extends Controller
 
     public function update(SaveGroupRequest $request, Group $group): JsonResponse
     {
+        $this->authorize('update', $group);
+
         $dto = UpdateGroupDto::fromRequest($request);
         $group = $this->groupService->updateGroup($group, $dto);
 
@@ -44,8 +46,10 @@ class GroupController extends Controller
 
     public function destroy(Group $group): JsonResponse
     {
+        $this->authorize('destroy', $group);
+
         $this->groupService->deleteGroup($group);
 
-        return response()->json([], 204);
+        return response()->json(['message' => 'Deleted group successfully.']);
     }
 }
