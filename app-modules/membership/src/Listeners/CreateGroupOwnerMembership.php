@@ -5,7 +5,6 @@ namespace Modules\Membership\Listeners;
 use Modules\Group\Events\GroupCreated;
 use Modules\Membership\Dto\CreateMemberDto;
 use Modules\Membership\Enums\Role;
-use Modules\Membership\Models\Membership;
 use Modules\Membership\Services\MembershipService;
 
 class CreateGroupOwnerMembership
