@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Membership\Listeners;
+namespace Modules\Group\Listeners;
 
 use Modules\Group\Services\GroupService;
 use Modules\Membership\Events\GroupEmptied;
