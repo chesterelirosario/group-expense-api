@@ -78,8 +78,8 @@ class GroupServiceTest extends TestCase
         $dto = new CreateGroupDto('Test Group', 'user-uuid');
         $group = Group::factory()->make([
             'id' => 'group-uuid',
-            'name' => 'Test Group',
-            'owner_id' => 'user-uuid',
+            'name' => $dto->name,
+            'owner_id' => $dto->ownerId,
         ]);
 
         $this->groupRepository
@@ -90,7 +90,7 @@ class GroupServiceTest extends TestCase
 
         $result = $this->groupService->createGroup($dto);
 
-        $this->assertEquals('Test Group', $result->name);
+        $this->assertEquals($dto->name, $result->name);
     }
 
     public function test_create_a_group_dispatches_event()
@@ -100,8 +100,8 @@ class GroupServiceTest extends TestCase
         $dto = new CreateGroupDto('Test Group', 'user-uuid');
         $group = Group::factory()->make([
             'id' => 'group-uuid',
-            'name' => 'Test Group',
-            'owner_id' => 'user-uuid',
+            'name' => $dto->name,
+            'owner_id' => $dto->ownerId,
         ]);
 
         $this->groupRepository
@@ -126,11 +126,11 @@ class GroupServiceTest extends TestCase
             ->shouldReceive('update')
             ->once()
             ->with($group, $dto)
-            ->andReturn(new Group(['id' => $group->id, 'name' => 'New Name']));
+            ->andReturn(new Group(['id' => $group->id, 'name' => $dto->name]));
 
         $updatedGroup = $this->groupService->updateGroup($group, $dto);
 
-        $this->assertEquals('New Name', $updatedGroup->name);
+        $this->assertEquals($dto->name, $updatedGroup->name);
     }
 
     public function test_can_delete_a_group()

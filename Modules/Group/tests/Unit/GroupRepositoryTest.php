@@ -56,8 +56,8 @@ class GroupRepositoryTest extends TestCase
 
         $this->assertDatabaseHas('groups', [
             'id' => $group->id,
-            'name' => 'Test Group',
-            'owner_id' => 'user-uuid',
+            'name' => $dto->name,
+            'owner_id' => $dto->ownerId,
         ]);
     }
 
@@ -68,10 +68,10 @@ class GroupRepositoryTest extends TestCase
 
         $updatedGroup = $this->groupRepository->update($group, $dto);
 
-        $this->assertEquals('New Name', $updatedGroup->name);
+        $this->assertEquals($dto->name, $updatedGroup->name);
         $this->assertDatabaseHas('groups', [
             'id' => $group->id,
-            'name' => 'New Name',
+            'name' => $dto->name,
         ]);
     }
 
