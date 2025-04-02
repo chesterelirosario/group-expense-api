@@ -71,6 +71,6 @@ class MembershipController extends Controller
 
         $this->membershipService->leaveGroup($dto);
 
-        return response()->json([], 204);
+        return response()->json(['message' => 'Left group successfully.']);
     }
 }
