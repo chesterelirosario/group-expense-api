@@ -5,6 +5,7 @@ namespace Modules\Group\Services;
 use Modules\Group\Dto\CreateGroupDto;
 use Modules\Group\Dto\UpdateGroupDto;
 use Modules\Group\Events\GroupCreated;
+use Modules\Group\Events\GroupDeleted;
 use Modules\Group\Models\Group;
 use Modules\Group\Repositories\GroupRepository;
 
@@ -43,6 +44,10 @@ class GroupService
 
     public function deleteGroup(Group $group): void
     {
+        $groupId = $group->id;
+
         $this->groupRepository->delete($group);
+
+        event(new GroupDeleted($groupId));
     }
 }
