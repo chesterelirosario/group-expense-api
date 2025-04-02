@@ -2,7 +2,6 @@
 
 namespace Modules\Group\Tests\Unit;
 
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Mockery;
@@ -76,12 +75,11 @@ class GroupServiceTest extends TestCase
 
     public function test_can_create_a_group()
     {
-        $user = User::factory()->create();
-        $dto = new CreateGroupDto('Test Group', $user->id);
+        $dto = new CreateGroupDto('Test Group', 'user-uuid');
         $group = Group::factory()->make([
             'id' => 'group-uuid',
             'name' => 'Test Group',
-            'owner_id' => $user->id
+            'owner_id' => 'user-uuid',
         ]);
 
         $this->groupRepository
@@ -99,12 +97,11 @@ class GroupServiceTest extends TestCase
     {
         Event::fake();
 
-        $user = User::factory()->create();
-        $dto = new CreateGroupDto('Test Group', $user->id);
+        $dto = new CreateGroupDto('Test Group', 'user-uuid');
         $group = Group::factory()->make([
             'id' => 'group-uuid',
             'name' => 'Test Group',
-            'owner_id' => $user->id
+            'owner_id' => 'user-uuid',
         ]);
 
         $this->groupRepository

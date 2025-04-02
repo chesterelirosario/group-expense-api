@@ -2,7 +2,6 @@
 
 namespace Modules\Group\Tests\Unit;
 
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Modules\Group\Dto\CreateGroupDto;
@@ -51,15 +50,14 @@ class GroupRepositoryTest extends TestCase
 
     public function test_can_create_a_group()
     {
-        $user = User::factory()->create();
-        $dto = new CreateGroupDto('Test Group', $user->id);
+        $dto = new CreateGroupDto('Test Group', 'user-uuid');
 
         $group = $this->groupRepository->create($dto);
 
         $this->assertDatabaseHas('groups', [
             'id' => $group->id,
             'name' => 'Test Group',
-            'owner_id' => $user->id,
+            'owner_id' => 'user-uuid',
         ]);
     }
 
