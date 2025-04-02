@@ -9,11 +9,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('memberships', function (Blueprint $table) {
+            $table->uuid('id')->primary();
             $table->uuid('group_id');
             $table->uuid('user_id');
             $table->string('role');
             $table->timestamps();
-            $table->primary(['group_id', 'user_id']);
+            $table->unique(['group_id', 'user_id']);
         });
     }
 
