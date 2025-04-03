@@ -73,27 +73,7 @@ class GroupServiceTest extends TestCase
         $this->assertNull($result);
     }
 
-    public function test_can_create_a_group()
-    {
-        $dto = new CreateGroupDto('Test Group', 'user-uuid');
-        $group = Group::factory()->make([
-            'id' => 'group-uuid',
-            'name' => $dto->name,
-            'owner_id' => $dto->ownerId,
-        ]);
-
-        $this->groupRepository
-            ->shouldReceive('create')
-            ->once()
-            ->with($dto)
-            ->andReturn($group);
-
-        $result = $this->groupService->createGroup($dto);
-
-        $this->assertEquals($dto->name, $result->name);
-    }
-
-    public function test_create_a_group_dispatches_event()
+    public function test_can_create_a_group_and_dispatches_event()
     {
         Event::fake();
 
@@ -110,8 +90,9 @@ class GroupServiceTest extends TestCase
             ->with($dto)
             ->andReturn($group);
 
-        $this->groupService->createGroup($dto);
+        $result = $this->groupService->createGroup($dto);
 
+        $this->assertEquals($dto->name, $result->name);
         Event::assertDispatched(GroupCreated::class, function ($event) use ($group) {
             return $event->groupId === $group->id && $event->userId === $group->owner_id;
         });
@@ -133,21 +114,7 @@ class GroupServiceTest extends TestCase
         $this->assertEquals($dto->name, $updatedGroup->name);
     }
 
-    public function test_can_delete_a_group()
-    {
-        $group = Group::factory()->make(['id' => 'group-uuid']);
-
-        $this->groupRepository
-            ->shouldReceive('delete')
-            ->once()
-            ->with($group);
-
-        $this->groupService->deleteGroup($group);
-
-        $this->assertTrue(true);
-    }
-
-    public function test_delete_a_group_dispatches_event()
+    public function test_can_delete_a_group_and_dispatches_event()
     {
         Event::fake();
 

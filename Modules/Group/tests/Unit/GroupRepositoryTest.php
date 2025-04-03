@@ -3,7 +3,6 @@
 namespace Modules\Group\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 use Modules\Group\Dto\CreateGroupDto;
 use Modules\Group\Dto\UpdateGroupDto;
 use Modules\Group\Models\Group;
@@ -43,7 +42,7 @@ class GroupRepositoryTest extends TestCase
 
     public function test_returns_null_if_group_not_found()
     {
-        $foundGroup = $this->groupRepository->find(Str::uuid());
+        $foundGroup = $this->groupRepository->find('invalid-id');
 
         $this->assertNull($foundGroup);
     }

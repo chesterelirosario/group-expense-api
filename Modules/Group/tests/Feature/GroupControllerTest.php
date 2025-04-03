@@ -19,6 +19,7 @@ class GroupControllerTest extends TestCase
         $this->actingAs($user)
             ->getJson(route('api.groups.index'))
             ->assertStatus(200)
+            ->assertJsonStructure(['groups'])
             ->assertJsonCount(2, 'groups');
     }
 
@@ -36,7 +37,8 @@ class GroupControllerTest extends TestCase
         $this->actingAs($user)
             ->postJson(route('api.groups.store'), $groupData)
             ->assertStatus(201)
-            ->assertJsonFragment(['name' => 'New Group']);
+            ->assertJsonStructure(['group'])
+            ->assertJsonFragment(['name' => $groupData['name']]);
     }
 
     public function test_user_can_update_group_if_authorized()
@@ -49,7 +51,8 @@ class GroupControllerTest extends TestCase
         $this->actingAs($user)
             ->putJson(route('api.groups.update', $group), $updateData)
             ->assertStatus(200)
-            ->assertJsonFragment(['name' => 'Updated Group']);
+            ->assertJsonStructure(['group'])
+            ->assertJsonFragment(['name' => $updateData['name']]);
     }
 
     public function test_user_cannot_update_group_without_permission()
