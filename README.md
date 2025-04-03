@@ -31,17 +31,17 @@ Make sure that you have the following installed in your machine:
    ```bash
    composer install
    ```
-4. Generating optimised autoload files:
-   ```bash
-   composer du
-   ```
-5. Generate application key:
+4. Generate application key:
    ```bash
    php artisan key:generate
    ```
-6. Start the application using Laravel Sail:
+5. Start the application using Laravel Sail:
    ```bash
    ./vendor/bin/sail up -d
+   ```
+6. Generate optimised autoload files:
+   ```bash
+   ./vendor/bin/sail composer du
    ```
 7. Run migrations and seed the database:
    ```bash
