@@ -31,19 +31,23 @@ Make sure that you have the following installed in your machine:
    ```bash
    composer install
    ```
+4. Generating optimised autoload files:
+   ```bash
+   composer du
+   ```
 5. Generate application key:
    ```bash
    php artisan key:generate
    ```
-4. Start the application using Laravel Sail:
+6. Start the application using Laravel Sail:
    ```bash
    ./vendor/bin/sail up -d
    ```
-6. Run migrations and seed the database:
+7. Run migrations and seed the database:
    ```bash
    ./vendor/bin/sail artisan migrate --seed
    ```
-7. The application is now ready to use.
+8. The application is now ready to use.
 
 ## Modular Architecture
 
