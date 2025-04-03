@@ -304,7 +304,7 @@ class MembershipServiceTest extends TestCase
 
         $this->membershipRepository
             ->shouldReceive('update')
-            ->with($member, Role::Administrator)
+            ->with($member, Role::Owner)
             ->once()
             ->andReturn($member);
 
