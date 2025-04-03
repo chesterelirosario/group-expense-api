@@ -47,7 +47,11 @@ Make sure that you have the following installed in your machine:
    ```bash
    ./vendor/bin/sail artisan migrate --seed
    ```
-8. The application is now ready to use.
+8. (Optional) If you want to seed the database with module data:
+   ```bash
+   ./vendor/bin/sail artisan module:seed
+   ```
+9. The application is now ready to use.
 
 ## Modular Architecture
 
@@ -93,7 +97,7 @@ A detailed API documentation is available via Postman. You can access it here:
 
 ## Tests
 
-Each module has corresponding tests to confirm that functionalities are working as expected. You can also use this as reference when doing API calls.
+Each module has corresponding tests to confirm that functionalities are working as expected. You can also use these tests as reference when doing API calls.
 
 ## Questions?
 
