@@ -5,8 +5,10 @@ namespace Modules\Membership\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Modules\Membership\Dto\CreateMemberDto;
+use Modules\Membership\Dto\DeleteMemberDto;
 use Modules\Membership\Dto\UpdateMemberDto;
 use Modules\Membership\Http\Requests\JoinGroupRequest;
+use Modules\Membership\Http\Requests\LeaveMemberRequest;
 use Modules\Membership\Http\Requests\ListMembersRequest;
 use Modules\Membership\Http\Requests\UpdateMemberRequest;
 use Modules\Membership\Services\MembershipService;
@@ -62,9 +64,9 @@ class MembershipController extends Controller
         return response()->json(['membership' => $membership]);
     }
 
-    public function leave(UpdateMemberRequest $request): JsonResponse
+    public function leave(LeaveMemberRequest $request): JsonResponse
     {
-        $dto = UpdateMemberDto::fromRequest($request);
+        $dto = DeleteMemberDto::fromRequest($request);
 
         $membership = $this->membershipService->findMember($dto->userId, $dto->groupId);
         $this->authorize('leave', $membership);
