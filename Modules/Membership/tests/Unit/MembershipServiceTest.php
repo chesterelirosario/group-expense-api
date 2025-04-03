@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Mockery;
 use Modules\Membership\Dto\CreateMemberDto;
+use Modules\Membership\Dto\DeleteMemberDto;
 use Modules\Membership\Dto\UpdateMemberDto;
 use Modules\Membership\Enums\Role;
 use Modules\Membership\Events\GroupEmptied;
@@ -246,7 +247,7 @@ class MembershipServiceTest extends TestCase
     {
         Event::fake();
 
-        $dto = new UpdateMemberDto('group-uuid', 'user-uuid');
+        $dto = new DeleteMemberDto('group-uuid', 'user-uuid');
         $membership = new Membership([
             'group_id' => $dto->groupId,
             'user_id' => $dto->userId,
@@ -277,7 +278,7 @@ class MembershipServiceTest extends TestCase
     {
         Event::fake();
 
-        $dto = new UpdateMemberDto('group-uuid', 'user-uuid');
+        $dto = new DeleteMemberDto('group-uuid', 'user-uuid');
         $owner = new Membership([
             'group_id' => $dto->groupId,
             'user_id' => $dto->userId,
@@ -321,11 +322,11 @@ class MembershipServiceTest extends TestCase
         });
     }
 
-    public function test_can_dispatche_group_emptied_event_when_group_is_empty()
+    public function test_can_dispatch_group_emptied_event_when_group_is_empty()
     {
         Event::fake();
 
-        $dto = new UpdateMemberDto('group-uuid', 'user-uuid');
+        $dto = new DeleteMemberDto('group-uuid', 'user-uuid');
         $owner = new Membership([
             'group_id' => $dto->groupId,
             'user_id' => $dto->userId,

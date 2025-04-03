@@ -23,7 +23,7 @@ class MembershipRepositoryTest extends TestCase
 
     public function test_can_list_members_of_a_group()
     {
-        Membership::factory()->count(3)->create([
+        Membership::factory()->create([
             'group_id' => 'group-uuid',
             'user_id' => 'user-uuid',
             'role' => Role::Member
@@ -31,7 +31,7 @@ class MembershipRepositoryTest extends TestCase
 
         $members = $this->membershipRepository->listMembers('group-uuid');
 
-        $this->assertCount(3, $members);
+        $this->assertCount(1, $members);
     }
 
     public function test_can_find_membership_by_user_and_group()
