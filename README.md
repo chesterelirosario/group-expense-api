@@ -85,7 +85,11 @@ A detailed API documentation is available via Postman. You can access it here:
   - Login
   - Logout
 - Upon registration or login, a bearer token is provided, which must be included in the headers for authenticated requests.
-- Postman is configured to automatically attach the token to requests.
+- If you use the provided Postman API, registering or logging in will automatically attach the token to requests.
+
+## Tests
+
+Each module has corresponding tests to confirm that functionalities are working as expected. You can also use this as reference when doing API calls.
 
 ## Questions?
 
