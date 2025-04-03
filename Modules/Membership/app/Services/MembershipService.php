@@ -85,7 +85,7 @@ class MembershipService
 
     public function leaveGroup(UpdateMemberDto $dto): void
     {
-        $membership = $this->membershipRepository->findByUserAndGroup(request()->user()->id, $dto->groupId);
+        $membership = $this->membershipRepository->findByUserAndGroup($dto->userId, $dto->groupId);
 
         if ($membership->role === Role::Owner) {
             $this->handleOwnershipTransfer($membership);
@@ -106,7 +106,7 @@ class MembershipService
 
         if ($newOwner) {
             $membership = $this->membershipRepository->update($newOwner, Role::Administrator);
-            event(new OwnerChanged($membership->group_id));
+            event(new OwnerChanged($membership));
         } else {
             event(new GroupEmptied($membership->group_id));
         }

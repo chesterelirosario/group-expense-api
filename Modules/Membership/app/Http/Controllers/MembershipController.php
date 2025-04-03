@@ -30,7 +30,7 @@ class MembershipController extends Controller
 
     public function members(ListMembersRequest $request): JsonResponse
     {
-        $membership = $this->membershipService->findMember($request->get('group_id'), $request->user()->id);
+        $membership = $this->membershipService->findMember($request->user()->id, $request->get('group_id'));
         $this->authorize('see', $membership);
 
         $members = $this->membershipService->listMembers($request->get('group_id'));
@@ -42,7 +42,7 @@ class MembershipController extends Controller
     {
         $dto = UpdateMemberDto::fromRequest($request);
 
-        $membership = $this->membershipService->findMember($dto->groupId, $dto->userId);
+        $membership = $this->membershipService->findMember($dto->userId, $dto->groupId);
         $this->authorize('promote', $membership);
 
         $updatedMembership = $this->membershipService->promoteMember($dto);
@@ -54,7 +54,7 @@ class MembershipController extends Controller
     {
         $dto = UpdateMemberDto::fromRequest($request);
 
-        $membership = $this->membershipService->findMember($dto->groupId, $dto->userId);
+        $membership = $this->membershipService->findMember($dto->userId, $dto->groupId);
         $this->authorize('demote', $membership);
 
         $membership = $this->membershipService->demoteMember($dto);
@@ -66,7 +66,7 @@ class MembershipController extends Controller
     {
         $dto = UpdateMemberDto::fromRequest($request);
 
-        $membership = $this->membershipService->findMember($dto->groupId, $dto->userId);
+        $membership = $this->membershipService->findMember($dto->userId, $dto->groupId);
         $this->authorize('leave', $membership);
 
         $this->membershipService->leaveGroup($dto);

@@ -12,7 +12,6 @@ class JoinGroupRequest extends FormRequest
             'group_id' => [
                 'required',
                 'string',
-                'exists:groups,id',
             ],
         ];
     }
