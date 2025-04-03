@@ -83,7 +83,9 @@ This application follows a modular architecture using the [`nWidart/laravel-modu
 ## API Documentation
 
 A detailed API documentation is available via Postman. You can access it here:
-[Postman Collection Link](https://www.postman.com/interstellar-flare-319171/workspace/group-expense-api-documentation/folder/3529449-066d457c-02cf-4aac-98ce-f55f53b13ef1?action=share&creator=3529449&ctx=documentation)
+[Postman Collection Link](https://www.postman.com/interstellar-flare-319171/workspace/group-expense-api-documentation/folder/3529449-066d457c-02cf-4aac-98ce-f55f53b13ef1?action=share&creator=3529449&ctx=documentation).
+
+You can use this Postman API documentation to interact with the API, but you might need to download Postman and run requests locally.
 
 ## Authentication
 
