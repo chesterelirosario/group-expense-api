@@ -3,6 +3,7 @@
 namespace Modules\Membership\Services;
 
 use Modules\Membership\Dto\CreateMemberDto;
+use Modules\Membership\Dto\DeleteMemberDto;
 use Modules\Membership\Dto\UpdateMemberDto;
 use Modules\Membership\Enums\Role;
 use Modules\Membership\Events\GroupEmptied;
@@ -83,7 +84,7 @@ class MembershipService
         return $membership;
     }
 
-    public function leaveGroup(UpdateMemberDto $dto): void
+    public function leaveGroup(DeleteMemberDto $dto): void
     {
         $membership = $this->membershipRepository->findByUserAndGroup($dto->userId, $dto->groupId);
 
