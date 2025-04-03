@@ -106,7 +106,7 @@ class MembershipService
         $newOwner = $this->membershipRepository->getNextOwner($membership->group_id);
 
         if ($newOwner) {
-            $membership = $this->membershipRepository->update($newOwner, Role::Administrator);
+            $membership = $this->membershipRepository->update($newOwner, Role::Owner);
             event(new OwnerChanged($membership));
         } else {
             event(new GroupEmptied($membership->group_id));
