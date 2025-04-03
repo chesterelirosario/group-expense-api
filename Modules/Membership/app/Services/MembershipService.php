@@ -31,7 +31,7 @@ class MembershipService
     {
         $memberships = $this->membershipRepository->listMembers($groupId);
 
-        return $memberships;
+        return $memberships->toArray();
     }
 
     public function findMember(string $userId, string $groupId): ?Membership

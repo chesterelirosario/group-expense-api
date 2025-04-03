@@ -2,18 +2,18 @@
 
 namespace Modules\Membership\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Membership\Dto\CreateMemberDto;
 use Modules\Membership\Enums\Role;
 use Modules\Membership\Models\Membership;
 
 class MembershipRepository
 {
-    public function listMembers(string $groupId): array
+    public function listMembers(string $groupId): Collection
     {
         return Membership::where('group_id', $groupId)
             ->with('user')
-            ->get()
-            ->toArray();
+            ->get();
     }
 
     public function findByUserAndGroup(string $userId, string $groupId): ?Membership

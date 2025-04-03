@@ -20,7 +20,7 @@ class GroupService
 
     public function getAllGroups(): array
     {
-        return $this->groupRepository->all();
+        return $this->groupRepository->all()->toArray();
     }
 
     public function findGroup(string $id): ?Group

@@ -40,7 +40,7 @@ class MembershipServiceTest extends TestCase
 
     public function test_can_list_members()
     {
-        $members = Membership::factory()->count(3)->make(['group_id' => 'group-uuid'])->toArray();
+        $members = Membership::factory()->count(3)->make(['group_id' => 'group-uuid']);
 
         $this->membershipRepository
             ->shouldReceive('listMembers')
@@ -50,7 +50,7 @@ class MembershipServiceTest extends TestCase
         $result = $this->membershipService->listMembers('group-uuid');
 
         $this->assertCount(3, $result);
-        $this->assertEquals($members, $result);
+        $this->assertEquals($members->toArray(), $result);
     }
 
     public function test_can_find_member()

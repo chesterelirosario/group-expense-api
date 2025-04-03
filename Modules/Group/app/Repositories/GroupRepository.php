@@ -2,15 +2,16 @@
 
 namespace Modules\Group\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Group\Dto\CreateGroupDto;
 use Modules\Group\Dto\UpdateGroupDto;
 use Modules\Group\Models\Group;
 
 class GroupRepository
 {
-    public function all(): array
+    public function all(): Collection
     {
-        return Group::all()->toArray();
+        return Group::all();
     }
 
     public function find(string $id): ?Group

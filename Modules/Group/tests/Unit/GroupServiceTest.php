@@ -31,7 +31,7 @@ class GroupServiceTest extends TestCase
 
     public function test_can_fetch_all_groups()
     {
-        $groups = Group::factory()->count(3)->make()->toArray();
+        $groups = Group::factory()->count(3)->make();
 
         $this->groupRepository
             ->shouldReceive('all')
@@ -41,7 +41,7 @@ class GroupServiceTest extends TestCase
         $result = $this->groupService->getAllGroups();
 
         $this->assertCount(3, $result);
-        $this->assertEquals($groups, $result);
+        $this->assertEquals($groups->toArray(), $result);
     }
 
     public function test_can_find_a_group_by_id()
